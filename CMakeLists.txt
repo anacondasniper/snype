@@ -9,6 +9,7 @@ find_package(SDL2 REQUIRED)
 add_executable(snype
 	src/main.c
 	src/input.c
+	src/state.c
 )
 
 target_include_directories(snype PRIVATE

@@ -1,10 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-
-typedef struct
-{
-    int running;
-} AppState;
+#include "state.h"
 
 void input_handle(SDL_Event *event, AppState *state);
