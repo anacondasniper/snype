@@ -1,5 +1,6 @@
-#include "SDL_render.h"
 #include <SDL2/SDL.h>
+#include "input.h"
+
 #define WINDOW_W 480
 #define WINDOW_H 320
 
@@ -21,20 +22,14 @@ int main(void)
         window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    int running = 1;
+    AppState state = {.running = 1};
     SDL_Event event;
 
-    while (running)
+    while (state.running)
     {
         while (SDL_PollEvent(&event))
         {
-            if (event.type == SDL_QUIT)
-                running = 0;
-            if (event.type == SDL_KEYDOWN)
-            {
-                if (event.key.keysym.sym == SDLK_ESCAPE)
-                    running = 0;
-            }
+            input_handle(&event, &state);
         }
 
         SDL_SetRenderDrawColor(renderer, 10, 10, 20, 255);
