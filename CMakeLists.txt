@@ -20,5 +20,6 @@ target_include_directories(snype PRIVATE
 
 target_link_libraries(snype
 	SDL2
+	SDL2_ttf
 	m
 )

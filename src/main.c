@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "input.h"
 #include "state.h"
 #include "render.h"
@@ -27,6 +28,14 @@ int main(void)
     AppState state;
     state_init(&state);
 
+    TTF_Init();
+    state.font = TTF_OpenFont("assets/fonts/JetBrainsMonoNerdFont-Regular.ttf", 16);
+    if (!state.font)
+    {
+        SDL_Log("Font load failed: %s", TTF_GetError());
+        return 1;
+    }
+
     SDL_Event event;
 
     while (state.running)
@@ -37,6 +46,8 @@ int main(void)
         }
         render_frame(renderer, &state);
     }
+    TTF_CloseFont(state.font);
+    TTF_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

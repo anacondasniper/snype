@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SDL2/SDL_ttf.h>
+
 typedef enum
 {
     MENU_HOME,
@@ -12,6 +14,7 @@ typedef struct
 {
     int running;
     SnypeMenu current_menu;
+    TTF_Font *font;
 } AppState;
 
 void state_init(AppState *state);
