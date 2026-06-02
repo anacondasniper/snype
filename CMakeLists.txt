@@ -10,6 +10,7 @@ add_executable(snype
 	src/main.c
 	src/input.c
 	src/state.c
+	src/render.c
 )
 
 target_include_directories(snype PRIVATE

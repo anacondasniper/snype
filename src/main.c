@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include "input.h"
 #include "state.h"
+#include "render.h"
 
 #define WINDOW_W 480
 #define WINDOW_H 320
@@ -34,15 +35,7 @@ int main(void)
         {
             input_handle(&event, &state);
         }
-
-        SDL_SetRenderDrawColor(renderer, 10, 10, 20, 255);
-        SDL_RenderClear(renderer);
-
-        SDL_SetRenderDrawColor(renderer, 100, 50, 200, 255);
-        SDL_Rect rect = {20, 20, 100, 50};
-        SDL_RenderFillRect(renderer, &rect);
-
-        SDL_RenderPresent(renderer);
+        render_frame(renderer, &state);
     }
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
