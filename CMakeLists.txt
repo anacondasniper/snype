@@ -11,6 +11,7 @@ add_executable(snype
 	src/input.c
 	src/state.c
 	src/render.c
+	src/roms.c
 )
 
 target_include_directories(snype PRIVATE

@@ -4,6 +4,8 @@
 #include "state.h"
 #include "render.h"
 
+#include "roms.h"
+
 #define WINDOW_W 480
 #define WINDOW_H 320
 
@@ -27,6 +29,7 @@ int main(void)
 
     AppState state;
     state_init(&state);
+    roms_scan("roms/");
 
     TTF_Init();
     state.font = TTF_OpenFont("assets/fonts/JetBrainsMonoNerdFont-Regular.ttf", 16);

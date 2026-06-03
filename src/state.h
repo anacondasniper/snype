@@ -22,6 +22,8 @@ typedef struct
 typedef struct
 {
     int cursor;
+    int depth;
+    int system_index;
 } RomsState;
 typedef struct
 {
