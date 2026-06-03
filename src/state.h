@@ -8,6 +8,7 @@ typedef enum
     MENU_MUSIC,
     MENU_ROMS,
     MENU_CMDS,
+    MENU_CFG,
 } SnypeMenu;
 
 typedef struct
@@ -26,13 +27,17 @@ typedef struct
 {
     int cursor;
 } CmdsState;
-
+typedef struct
+{
+    int cursor;
+} CfgState;
 typedef union
 {
     HomeState home;
     MusicState music;
     RomsState roms;
     CmdsState cmds;
+    CfgState cfg;
 } ScreenData;
 
 typedef struct

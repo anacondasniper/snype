@@ -5,7 +5,7 @@ static MenuItem home_items[] = {
     {"Games", MENU_ROMS},
     {"Music", MENU_MUSIC},
     {"Commands", MENU_CMDS},
-    {"Settings", MENU_HOME /*placeholder*/},
+    {"Settings", MENU_CFG},
 };
 
 #define ARRAY_LEN(arr) (sizeof(arr) / sizeof(arr[0]))
@@ -40,7 +40,7 @@ static void render_home(SDL_Renderer *renderer, AppState *state)
     SDL_RenderClear(renderer);
 
     draw_text(renderer, state->font, "Hello, user", 20, 15, white);
-    draw_text(renderer, state->font, "snype v1.0.1", 350, 15, white);
+    draw_text(renderer, state->font, "snype v0.1.0", 350, 15, white);
     for (int i = 0; i < ARRAY_LEN(home_items); i++)
     {
         int y = start_y + i * item_height;
@@ -73,6 +73,12 @@ static void render_cmds(SDL_Renderer *renderer, AppState *state)
     SDL_RenderClear(renderer);
 }
 
+static void render_cfg(SDL_Renderer *renderer, AppState *state)
+{
+    SDL_SetRenderDrawColor(renderer, 20, 50, 50, 255);
+    SDL_RenderClear(renderer);
+}
+
 void render_frame(SDL_Renderer *renderer, AppState *state)
 {
     switch (state->current_menu)
@@ -88,6 +94,9 @@ void render_frame(SDL_Renderer *renderer, AppState *state)
         break;
     case MENU_CMDS:
         render_cmds(renderer, state);
+        break;
+    case MENU_CFG:
+        render_cfg(renderer, state);
         break;
     default:
         break;

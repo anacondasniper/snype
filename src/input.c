@@ -63,6 +63,16 @@ void input_handle(SDL_Event *event, AppState *state)
                 break;
             }
             break;
+        case MENU_CFG:
+            switch (event->key.keysym.sym)
+            {
+            case SDLK_BACKSPACE:
+                state->current_menu = MENU_HOME;
+                break;
+            default:
+                break;
+            }
+            break;
         default:
             break;
         }
