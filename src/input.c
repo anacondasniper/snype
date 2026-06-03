@@ -1,5 +1,5 @@
 #include "input.h"
-
+#include "render.h"
 void input_handle(SDL_Event *event, AppState *state)
 {
     if (event->type == SDL_QUIT)
@@ -9,22 +9,35 @@ void input_handle(SDL_Event *event, AppState *state)
 
     if (event->type == SDL_KEYDOWN)
     {
-        switch (event->key.keysym.sym)
-        {
-        case SDLK_ESCAPE:
+        if (event->key.keysym.sym == SDLK_ESCAPE)
             state->running = 0;
+
+        switch (state->current_menu)
+        {
+        case MENU_HOME:
+            switch (event->key.keysym.sym)
+            {
+            case SDLK_UP:
+                if (state->screen.home.cursor > 0)
+                    state->screen.home.cursor--;
+                break;
+            case SDLK_DOWN:
+                if (state->screen.home.cursor < 3)
+                    state->screen.home.cursor++;
+                break;
+            case SDLK_RETURN:
+                state->current_menu =
+                    home_get_target(state->screen.home.cursor);
+                break;
+            default:
+                break;
+            }
             break;
-        case SDLK_1:
-            state->current_menu = MENU_HOME;
+        case MENU_MUSIC:
             break;
-        case SDLK_2:
-            state->current_menu = MENU_MUSIC;
+        case MENU_ROMS:
             break;
-        case SDLK_3:
-            state->current_menu = MENU_ROMS;
-            break;
-        case SDLK_4:
-            state->current_menu = MENU_CMDS;
+        case MENU_CMDS:
             break;
         default:
             break;
