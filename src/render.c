@@ -39,6 +39,8 @@ static void render_home(SDL_Renderer *renderer, AppState *state)
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderClear(renderer);
 
+    draw_text(renderer, state->font, "Hello, user", 20, 15, white);
+    draw_text(renderer, state->font, "snype v1.0.1", 350, 15, white);
     for (int i = 0; i < ARRAY_LEN(home_items); i++)
     {
         int y = start_y + i * item_height;
