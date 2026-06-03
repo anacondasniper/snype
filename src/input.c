@@ -1,6 +1,8 @@
 #include "input.h"
 #include "render.h"
 #include "roms.h"
+#include "launcher.h"
+#include <asm-generic/errno.h>
 void input_handle(SDL_Event *event, AppState *state)
 {
     if (event->type == SDL_QUIT)
@@ -75,10 +77,18 @@ void input_handle(SDL_Event *event, AppState *state)
                         }
                         break;
                     case SDLK_RETURN:
-                        roms_scan_system(state->screen.roms.cursor);
-                        state->screen.roms.depth = 1;
-                        state->screen.roms.system_index = state->screen.roms.cursor;
-                        state->screen.roms.cursor = 0;
+                        if (state->screen.roms.depth == 1)
+                        {
+                            RomEntry *rom = roms_get_rom(state->screen.roms.cursor);
+                            launcher_run("mgba", rom->path);
+                        }
+                        else
+                        {
+                            roms_scan_system(state->screen.roms.cursor);
+                            state->screen.roms.depth = 1;
+                            state->screen.roms.system_index = state->screen.roms.cursor;
+                            state->screen.roms.cursor = 0;
+                        }
                         break;
                     default:
                         break;

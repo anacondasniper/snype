@@ -11,12 +11,14 @@ add_executable(snype
 	src/input.c
 	src/state.c
 	src/render.c
-	src/roms.c
+	src/roms/roms.c
+	src/roms/launcher.c
 )
 
 target_include_directories(snype PRIVATE
 	${SDL2_INCLUDE_DIRS}
 	src/
+	src/roms/
 )
 
 target_link_libraries(snype
