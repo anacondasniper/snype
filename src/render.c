@@ -44,6 +44,11 @@ SnypeMenu home_get_target(int cursor)
     return home_items[cursor].target;
 }
 
+int home_get_item_count(void)
+{
+    return ARRAY_LEN(home_items);
+}
+
 /* Render */
 static void render_home(SDL_Renderer *renderer, AppState *state)
 {
@@ -69,6 +74,8 @@ static void render_home(SDL_Renderer *renderer, AppState *state)
 
 static void render_music(SDL_Renderer *renderer, AppState *state)
 {
+    render_background(renderer, 20, 20, 40);
+    render_header(renderer, state, "Music");
 }
 
 static void render_roms(SDL_Renderer *renderer, AppState *state)
@@ -113,14 +120,14 @@ static void render_roms(SDL_Renderer *renderer, AppState *state)
 
 static void render_cmds(SDL_Renderer *renderer, AppState *state)
 {
-    SDL_SetRenderDrawColor(renderer, 50, 20, 50, 255);
-    SDL_RenderClear(renderer);
+    render_background(renderer, 50, 20, 50);
+    render_header(renderer, state, "Commands");
 }
 
 static void render_cfg(SDL_Renderer *renderer, AppState *state)
 {
-    SDL_SetRenderDrawColor(renderer, 20, 50, 50, 255);
-    SDL_RenderClear(renderer);
+    render_background(renderer, 40, 20, 60);
+    render_header(renderer, state, "Settings");
 }
 
 void render_frame(SDL_Renderer *renderer, AppState *state)

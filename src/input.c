@@ -25,7 +25,7 @@ void input_handle(SDL_Event *event, AppState *state)
                             state->screen.home.cursor--;
                         break;
                     case SDLK_DOWN:
-                        if (state->screen.home.cursor < 3)
+                        if (state->screen.home.cursor < home_get_item_count() - 1)
                             state->screen.home.cursor++;
                         break;
                     case SDLK_RETURN:

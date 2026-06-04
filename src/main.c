@@ -23,9 +23,23 @@ int main(void)
         WINDOW_W, WINDOW_H,
         0);
 
+    if (!window)
+    {
+        SDL_Log("Window creation failed: %s", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
+
     SDL_Renderer *renderer = SDL_CreateRenderer(
         window, -1,
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+    if (!renderer)
+    {
+        SDL_Log("Renderer creation failed: %s", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
 
     AppState state;
     state_init(&state);

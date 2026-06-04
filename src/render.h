@@ -10,4 +10,5 @@ typedef struct
 } MenuItem;
 
 SnypeMenu home_get_target(int cursor);
+int home_get_item_count(void);
 void render_frame(SDL_Renderer *renderer, AppState *state);
