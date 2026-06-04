@@ -63,7 +63,7 @@ void roms_scan_system(int system_index)
             if (roms_count >= MAX_ROMS)
                 break;
             strncpy(roms[roms_count].name, entry->d_name, NAME_LEN);
-            snprintf(roms[roms_count].path, PATH_LEN, "%s/%s", systems[system_index].name, entry->d_name);
+            snprintf(roms[roms_count].path, PATH_LEN, "%s/%s", systems[system_index].path, entry->d_name);
             roms_count++;
         }
     }

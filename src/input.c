@@ -2,7 +2,6 @@
 #include "render.h"
 #include "roms.h"
 #include "launcher.h"
-#include <asm-generic/errno.h>
 void input_handle(SDL_Event *event, AppState *state)
 {
     if (event->type == SDL_QUIT)
@@ -79,8 +78,15 @@ void input_handle(SDL_Event *event, AppState *state)
                     case SDLK_RETURN:
                         if (state->screen.roms.depth == 1)
                         {
+                            const char *system = roms_get_system(state->screen.roms.system_index)->name;
+                            const char *emulator = launcher_get_emulator(system);
+                            if (!emulator)
+                            {
+                                printf("No emulator found for system: %s\n", system);
+                                break;
+                            }
                             RomEntry *rom = roms_get_rom(state->screen.roms.cursor);
-                            launcher_run("mgba", rom->path);
+                            launcher_run(emulator, rom->path);
                         }
                         else
                         {

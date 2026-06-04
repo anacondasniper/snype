@@ -48,6 +48,6 @@ typedef struct
     SnypeMenu current_menu;
     ScreenData screen;
     TTF_Font *font;
-} AppState;
+} AppState; // TODO: home cursor persists across union
 
 void state_init(AppState *state);
