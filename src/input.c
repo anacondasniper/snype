@@ -1,6 +1,8 @@
 #include "input.h"
 #include "render.h"
+
 #include "roms.h"
+#include "music.h"
 #include "launcher.h"
 void input_handle(SDL_Event *event, AppState *state)
 {
@@ -30,6 +32,18 @@ void input_handle(SDL_Event *event, AppState *state)
                     case SDLK_RETURN:
                         state->current_menu =
                             home_get_target(state->screen.home.cursor);
+                        switch (state->current_menu)
+                        {
+                            case MENU_MUSIC:
+                                state->screen.music.cursor = 0;
+                                break;
+                            case MENU_ROMS:
+                                state->screen.roms.cursor = 0;
+                                state->screen.roms.depth = 0;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     default:
                         break;
@@ -40,6 +54,21 @@ void input_handle(SDL_Event *event, AppState *state)
                 {
                     case SDLK_BACKSPACE:
                         state->current_menu = MENU_HOME;
+                        break;
+                    case SDLK_UP:
+                        if (state->screen.music.cursor > 0)
+                            state->screen.music.cursor--;
+                        break;
+                    case SDLK_DOWN:
+                        if (state->screen.music.cursor < music_track_count() - 1)
+                            state->screen.music.cursor++;
+                        break;
+                    case SDLK_RETURN:
+                        music_play(state->screen.music.cursor);
+                        state->screen.music.current_track = state->screen.music.cursor;
+                        break;
+                    case SDLK_SPACE:
+                        music_pause();
                         break;
                     default:
                         break;

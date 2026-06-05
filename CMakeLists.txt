@@ -13,16 +13,20 @@ add_executable(snype
 	src/render.c
 	src/roms/roms.c
 	src/roms/launcher.c
+	src/music/music.c
 )
 
 target_include_directories(snype PRIVATE
 	${SDL2_INCLUDE_DIRS}
 	src/
 	src/roms/
+	src/music/
 )
 
 target_link_libraries(snype
 	SDL2
 	SDL2_ttf
+	SDL2_image
+	SDL2_mixer
 	m
 )

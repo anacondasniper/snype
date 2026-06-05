@@ -1,5 +1,6 @@
 #include "render.h"
 #include "roms.h"
+#include "music.h"
 #include <SDL2/SDL_ttf.h>
 
 static MenuItem home_items[] = {
@@ -74,8 +75,32 @@ static void render_home(SDL_Renderer *renderer, AppState *state)
 
 static void render_music(SDL_Renderer *renderer, AppState *state)
 {
-    render_background(renderer, 20, 20, 40);
+    const int start_y = 50;
+    const int item_height = 40;
+    SDL_Color white = {255, 255, 255, 255};
+    render_background(renderer, 50, 20, 50);
     render_header(renderer, state, "Music");
+
+    for (int i = 0; i < music_track_count(); i++)
+    {
+        int y = start_y + i * item_height;
+
+        if (i == state->screen.music.cursor)
+        {
+            SDL_Rect highlight = {0, y, 480, item_height};
+            SDL_SetRenderDrawColor(renderer, 100, 50, 200, 255);
+            SDL_RenderFillRect(renderer, &highlight);
+        }
+        draw_text(renderer, state->font, music_get_track(i)->name, 40, y + 12, white);
+    }
+    // TODO: Replace with depth song info screen
+    if (music_is_playing())
+    {
+        char status[128];
+        const char *symbol = music_is_playing() ? "|| " : "> ";
+        snprintf(status, sizeof(status), "%s%s", symbol, music_get_track(state->screen.music.current_track)->name);
+        draw_text(renderer, state->font, status, 20, 290, white);
+    }
 }
 
 static void render_roms(SDL_Renderer *renderer, AppState *state)
@@ -83,7 +108,7 @@ static void render_roms(SDL_Renderer *renderer, AppState *state)
     const int start_y = 50;
     const int item_height = 40;
     SDL_Color white = {255, 255, 255, 255};
-    render_background(renderer, 50, 50, 50);
+    render_background(renderer, 50, 50, 20);
     render_header(renderer, state, "Games");
 
     if (state->screen.roms.depth)

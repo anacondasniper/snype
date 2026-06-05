@@ -18,6 +18,7 @@ typedef struct
 typedef struct
 {
     int cursor;
+    int current_track;
 } MusicState;
 typedef struct
 {

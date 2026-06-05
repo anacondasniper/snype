@@ -1,17 +1,19 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 #include "input.h"
 #include "state.h"
 #include "render.h"
 
 #include "roms.h"
+#include "music.h"
 
 #define WINDOW_W 480
 #define WINDOW_H 320
 
 int main(void)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
     {
         SDL_Log("SDL init failed: %s", SDL_GetError());
         return 1;
@@ -41,9 +43,17 @@ int main(void)
         return 1;
     }
 
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) != 0)
+    {
+        SDL_Log("Mix_OpenAudio Failed: %s", Mix_GetError());
+        return 1;
+    }
+
     AppState state;
     state_init(&state);
+
     roms_scan("roms/");
+    music_scan("music/");
 
     TTF_Init();
     state.font = TTF_OpenFont("assets/fonts/JetBrainsMonoNerdFont-Regular.ttf", 16);
@@ -65,6 +75,8 @@ int main(void)
     }
     TTF_CloseFont(state.font);
     TTF_Quit();
+    Mix_CloseAudio();
+    Mix_Quit();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
